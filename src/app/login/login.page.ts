@@ -9,9 +9,16 @@ import { auth } from 'firebase/app';
 })
 export class LoginPage implements OnInit {
 
+	email: string;
+	password: string;
+
   constructor(public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
+	}
+
+	createAccount() {
+		this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
 	}
 	
 	login() {

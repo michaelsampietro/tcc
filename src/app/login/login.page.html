@@ -1,7 +1,6 @@
 <ion-content ion-padding>
-	<div>
-		<ion-img style="max-height: 300px"
-			[src]="'https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/shopping-shoes-woman.png?alt=media&token=586e1d52-4123-49b5-b20d-1af516ccd4ec'">
+	<div style="max-height: 300px">
+		<ion-img [src]="'https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/shopping-shoes-woman.png?alt=media&token=586e1d52-4123-49b5-b20d-1af516ccd4ec'">
 		</ion-img>
 	</div>
 
@@ -10,7 +9,7 @@
 			<ion-label>
 				<ion-icon name="mail"></ion-icon>
 			</ion-label>
-			<ion-input placeholder="Digite seu email" autofocus type="email"></ion-input>
+			<ion-input placeholder="Digite seu email" [(ngModel)]="email" autofocus type="email"></ion-input>
 		</ion-item>
 
 		<ion-item lines="none">
