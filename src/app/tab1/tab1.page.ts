@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UserService } from '../utils/user.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,5 +9,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class Tab1Page {
 
-	constructor(public afAuth: AngularFireAuth) {}
+  constructor(public afAuth: AngularFireAuth, private userService: UserService) {
+    userService.ControlPageAccess();
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase/app';
+import { UserService } from '../utils/user.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,20 +12,20 @@ export class LoginPage implements OnInit {
 	email: string;
 	password: string;
 
-  constructor(public afAuth: AngularFireAuth) { }
+	constructor(private userService: UserService, 
+		private loadingController: LoadingController) { }
 
-  ngOnInit() {
+	ngOnInit() { }
+	
+	loginGoogle() {
+		this.userService.LoginGoogle();	
 	}
 
-	createAccount() {
-		this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
+	loginFacebook() {
+		this.userService.LoginFacebook();
 	}
-	
-	login() {
-		this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-	}
-	
-  logout() {
-		this.afAuth.auth.signOut();
+
+	logout() {
+		this.userService.Logout();
 	}
 }
