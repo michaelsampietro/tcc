@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { LoginPage } from '../login/login.page';
 import { NavController, AlertController } from '@ionic/angular';
 import { auth } from 'firebase';
 
