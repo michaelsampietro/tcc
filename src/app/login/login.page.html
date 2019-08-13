@@ -16,7 +16,7 @@
 			<ion-label>
 				<ion-icon name="lock"></ion-icon>
 			</ion-label>
-			<ion-input placeholder="Digite sua senha" type="password"></ion-input>
+			<ion-input placeholder="Digite sua senha" [(ngModel)]="password" type="password"></ion-input>
 		</ion-item>
 	</div>
 
@@ -27,14 +27,13 @@
 
 		<hr>
 
-		<ion-button expand="block">
+		<ion-button expand="block" href="/signup">
 			<ion-icon name="key"></ion-icon> Registrar
 		</ion-button>
-
 	</div>
 
-	<button (click)="loginGoogle()">Login Google</button>
-	<button (click)="loginFacebook()">Login Facebook</button>
-	<button (click)="logout()">Logout</button>
-		
+	<div class="ion-padding">
+		<ion-button (click)="loginGoogle()" expand="block"><ion-icon name="logo-google"></ion-icon> Entrar usando o Google</ion-button>
+		<ion-button (click)="loginFacebook()" expand="block"><ion-icon name="logo-facebook"></ion-icon> Entrar usando Facebook</ion-button>
+	</div>
 </ion-content>

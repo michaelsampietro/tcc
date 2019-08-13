@@ -8,6 +8,9 @@ import { auth } from 'firebase';
 })
 export class UserService {
 
+  userEmail: string;
+  userPassword: string;
+
   constructor(public afAuth: AngularFireAuth,
     private navCtrl: NavController,
     private alertController: AlertController) { }
@@ -40,6 +43,49 @@ export class UserService {
       this.navCtrl.navigateRoot("/tabs/tab1");
     }).catch(async error => {
       const alerta = await this.alertController.create({
+        header: 'Não foi possível logar!',
+        subHeader: 'Não foi possível logar',
+        message: error.message,
+        buttons: ['OK']
+      });
+      alerta.present();
+      console.log(error);
+    });
+  }
+
+  CreateUserUsingEmailAndPassword(email: string, password: string) {
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(_ => {
+      this.LoginUsingEmailAndPassword(email, password);
+    }).catch(async error => {
+      let msgErro = "Erro não identificado!";
+      if (error.code){
+        if (error.code === 'auth/weak-password') {
+            msgErro = "A senha deve conter no mínimo 6 caracteres";
+        }
+        else if(error.code === 'auth/invalid-email'){
+            msgErro = "O email informado é invalido";
+        }
+        else {
+            msgErro = "O email informado ja está cadastrado";
+        }
+      }
+
+      const alerta = await this.alertController.create({
+        header: 'Erro!',
+        subHeader: 'Não foi possível logar',
+        message: msgErro,
+        buttons: ['OK']
+      });
+      alerta.present();
+      console.log(error);
+    })
+  }
+
+  LoginUsingEmailAndPassword(email: string, password:string){
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).then(_ => {
+      this.navCtrl.navigateRoot("/tabs/tab1");
+    }).catch(async error => {
+      const alerta = await this.alertController.create({
         header: 'Erro!',
         subHeader: 'Não foi possível logar',
         message: 'Por favor, tente com outro método ou tente novamente mais tarde!',
@@ -47,7 +93,7 @@ export class UserService {
       });
       alerta.present();
       console.log(error);
-    });
+    })
   }
 
   // Faz logout com o usuário atualmente logado.

@@ -12,7 +12,7 @@
 		<ion-card-header>
 			<ion-card-subtitle>Início</ion-card-subtitle>
 			<div *ngIf="afAuth.user | async as user; else anonimo">
-				<ion-card-title>Bem-Vindo, {{user.displayName}}</ion-card-title>
+				<ion-card-title>Bem-Vindo {{user.displayName}}</ion-card-title>
 			</div>
 			<ng-template #anonimo>
 				<ion-card-title>Olá, anonimo</ion-card-title>

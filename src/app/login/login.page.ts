@@ -25,6 +25,10 @@ export class LoginPage implements OnInit {
 		this.userService.LoginFacebook();
 	}
 
+	loginEmail() {
+		this.userService.LoginUsingEmailAndPassword(this.email, this.password);
+	}
+
 	logout() {
 		this.userService.Logout();
 	}
