@@ -6,7 +6,19 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+	<ion-fab-button>
+		<ion-icon name="add"></ion-icon>
+	</ion-fab-button>
+	<ion-fab-list side="top">
+		<ion-fab-button (click)="AbrirCamera()"><ion-icon name="camera"></ion-icon></ion-fab-button>
+	</ion-fab-list>
+	<ion-fab-list side="left">
+		<ion-fab-button><ion-icon name="cloud-upload"></ion-icon></ion-fab-button>
+	</ion-fab-list>
+</ion-fab>
+
+<!-- <ion-content>
 	<ion-card class="welcome-card">
 		<ion-img src="/assets/shapes.svg"></ion-img>
 		<ion-card-header>
@@ -24,4 +36,4 @@
 				of the resources below for next steps.</p>
 		</ion-card-content>
 	</ion-card>
-</ion-content>
+</ion-content> -->
