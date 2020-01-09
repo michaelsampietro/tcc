@@ -1,7 +1,6 @@
 <ion-content ion-padding>
-	<div>
-		<ion-img style="max-height: 300px"
-			[src]="'https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/shopping-shoes-woman.png?alt=media&token=586e1d52-4123-49b5-b20d-1af516ccd4ec'">
+	<div style="max-height: 300px">
+		<ion-img [src]="'https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/shopping-shoes-woman.png?alt=media&token=586e1d52-4123-49b5-b20d-1af516ccd4ec'">
 		</ion-img>
 	</div>
 
@@ -10,14 +9,14 @@
 			<ion-label>
 				<ion-icon name="mail"></ion-icon>
 			</ion-label>
-			<ion-input placeholder="Digite seu email" autofocus type="email"></ion-input>
+			<ion-input placeholder="Digite seu email" [(ngModel)]="email" autofocus type="email"></ion-input>
 		</ion-item>
 
 		<ion-item lines="none">
 			<ion-label>
 				<ion-icon name="lock"></ion-icon>
 			</ion-label>
-			<ion-input placeholder="Digite sua senha" type="password"></ion-input>
+			<ion-input placeholder="Digite sua senha" [(ngModel)]="password" type="password"></ion-input>
 		</ion-item>
 	</div>
 
@@ -28,19 +27,13 @@
 
 		<hr>
 
-		<ion-button expand="block">
+		<ion-button expand="block" href="/signup">
 			<ion-icon name="key"></ion-icon> Registrar
 		</ion-button>
-
 	</div>
 
-	<div *ngIf="afAuth.user | async as user; else showLogin">
-		<h1>Hello {{ user.displayName }}!</h1>
-		<button (click)="logout()">Logout</button>
+	<div class="ion-padding">
+		<ion-button (click)="loginGoogle()" expand="block"><ion-icon name="logo-google"></ion-icon> Entrar usando o Google</ion-button>
+		<ion-button (click)="loginFacebook()" expand="block"><ion-icon name="logo-facebook"></ion-icon> Entrar usando Facebook</ion-button>
 	</div>
-	<ng-template #showLogin>
-		<p>Please login.</p>
-		<button (click)="login()">Login!</button>
-	</ng-template>
-		
 </ion-content>
