@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../utils/user.service';
+import { UserService } from '../utils/user/user.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({

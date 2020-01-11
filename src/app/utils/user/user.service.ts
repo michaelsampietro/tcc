@@ -119,10 +119,14 @@ export class UserService {
     this.afAuth.auth.signOut();
   }
 
+  GetUserId(): string {
+    return this.afAuth.auth.currentUser.uid;
+  }
+
   // Verifica se o usuário está logado ou não no firebase.
   private UserIsLogged(): boolean {
     return this.afAuth.auth.currentUser ? true : false;
-  }
+  } 
 
   // Redireciona para a tela de login do aplicativo.
   private RedirectToLogin(): void {

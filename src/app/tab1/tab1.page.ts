@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { AngularFireAuth } from "angularfire2/auth";
-import { UserService } from "../utils/user.service";
-import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
+import { UserService } from "../utils/user/user.service";
+import { CameraService } from "../utils/camera/camera.service";
 
 @Component({
   selector: "app-tab1",
@@ -15,7 +15,7 @@ export class Tab1Page {
   constructor(
     public afAuth: AngularFireAuth,
     private userService: UserService,
-    private camera: Camera
+    private cameraService: CameraService
   ) {
     this.imagens = new Array<string>();
     userService.ControlPageAccess();
@@ -26,19 +26,7 @@ export class Tab1Page {
   }
 
   AbrirCamera(): void {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    this.camera.getPicture(options).then(
-      imageData => {
-        const base64Image = "data:image/jpeg;base64," + imageData;
-        console.log(base64Image);
-      }
-    );
+    this.cameraService.AbrirCamera();
   }
 
   ObterImagensMaisRecentes(): void {
