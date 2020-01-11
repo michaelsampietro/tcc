@@ -18,17 +18,14 @@
 	</ion-fab-list>
 </ion-fab>
 
-<!-- <ion-content>
+<ion-content>
 	<ion-card class="welcome-card">
 		<ion-img src="/assets/shapes.svg"></ion-img>
 		<ion-card-header>
-			<ion-card-subtitle>Início</ion-card-subtitle>
+			<ion-card-subtitle>Bem vindo,</ion-card-subtitle>
 			<div *ngIf="afAuth.user | async as user; else anonimo">
-				<ion-card-title>Bem-Vindo {{user.displayName}}</ion-card-title>
+				<ion-card-title>{{user.displayName}}</ion-card-title>
 			</div>
-			<ng-template #anonimo>
-				<ion-card-title>Olá, anonimo</ion-card-title>
-			</ng-template>
 		</ion-card-header>
 		
 		<ion-card-content>
@@ -36,4 +33,27 @@
 				of the resources below for next steps.</p>
 		</ion-card-content>
 	</ion-card>
-</ion-content> -->
+
+	<ion-card class="welcome-card">
+		<div class="slides-wrapper">
+			<ion-slides pager="true" [options]="slideOpts">
+				<ion-slide>
+					<ion-img style="width: auto; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/solar-green20190924224618.png?alt=media&token=93cd1536-6264-4f75-9990-96049848e667"></ion-img>
+				</ion-slide>
+				<ion-slide>
+					<ion-img style="width: auto; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/ozweego-black-carbon20190923224411.png?alt=media&token=54c5916e-ef3c-40fe-b0f6-b7f660552ed8"></ion-img>
+				</ion-slide>
+				<ion-slide>
+					<ion-img style="width: auto; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/CW1203_01_laydown.jpg?alt=media&token=0a74256f-7250-4f56-b5cd-7dca1f311b6a"></ion-img>
+				</ion-slide>
+			</ion-slides>
+		</div>
+		<ion-card-header>
+			<ion-card-title>Últimos uploads</ion-card-title>
+		</ion-card-header>
+		
+		<ion-card-content>
+			<p>Essas foram as últimas peças de roupa que você subiu para a nossa plataforma, que tal criar um look com elas, hein? </p>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
