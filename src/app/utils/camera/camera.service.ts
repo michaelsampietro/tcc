@@ -8,9 +8,23 @@ import { Upload } from 'src/app/models/upload';
 })
 export class CameraService {
 
-  constructor(private camera: Camera, private us: UploadService) { }
+  constructor(
+    private camera: Camera, 
+    private us: UploadService) { }
 
   AbrirCamera(): void {
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.TirarFoto(options);
+  }
+
+  AbrirGaleria(): void {
     const options: CameraOptions = {
       quality: 100,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -18,13 +32,14 @@ export class CameraService {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
+    
+    this.TirarFoto(options);
+  }
 
+  private TirarFoto(options: CameraOptions): void {
     this.camera.getPicture(options).then(
       imageData => {
-        // const base64Image = "data:image/jpeg;base64," + imageData;
-
         console.log(imageData);
-      }
-    );
+    });
   }
 }

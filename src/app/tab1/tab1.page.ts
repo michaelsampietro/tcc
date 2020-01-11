@@ -29,6 +29,10 @@ export class Tab1Page {
     this.cameraService.AbrirCamera();
   }
 
+  AbrirGaleria(): void {
+    this.cameraService.AbrirGaleria();
+  }
+
   ObterImagensMaisRecentes(): void {
     this.imagens.push("https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/solar-green20190924224618.png?alt=media&token=93cd1536-6264-4f75-9990-96049848e667");
     this.imagens.push("https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/ozweego-black-carbon20190923224411.png?alt=media&token=54c5916e-ef3c-40fe-b0f6-b7f660552ed8");
