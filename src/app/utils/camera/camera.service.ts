@@ -12,37 +12,34 @@ export class CameraService {
     const options: CameraOptions = {
       quality: 100,
       sourceType: this.camera.PictureSourceType.CAMERA,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
 
-    const image = this.TirarFoto(options);
-    this.us.UploadImage(image);
+    this.TirarFoto(options).then(i => {
+      console.log(i);
+      this.us.UploadImage(i);
+    });
   }
 
   AbrirGaleria(): void {
     const options: CameraOptions = {
       quality: 100,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
 
-    const image = this.TirarFoto(options);
-    this.us.UploadImage(image);
-  }
-
-  private TirarFoto(options: CameraOptions): string {
-    let imagem: string;
-    this.camera.getPicture(options).then(imageData => {
-      imageData = `data:image/jpeg;base64,${imageData}`;
-    })
-    .catch(e => {
-      console.log(e);
+    this.TirarFoto(options).then(i => {
+      console.log(i)
+      this.us.UploadImage(i);
     });
-
-    return imagem;
   }
+
+  private async TirarFoto(options: CameraOptions) {
+    const img = await this.camera.getPicture(options);
+    return `data:image/jpeg;base64,${img}`;
+  };
 }
