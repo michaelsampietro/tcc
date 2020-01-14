@@ -39,6 +39,7 @@ export class CameraService {
   }
 
   private async TirarFoto(options: CameraOptions) {
+    
     const img = await this.camera.getPicture(options);
     return `data:image/jpeg;base64,${img}`;
   };
