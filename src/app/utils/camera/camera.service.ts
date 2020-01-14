@@ -1,16 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
-import { UploadService } from '../upload/upload.service';
-import { Upload } from 'src/app/models/upload';
+import { UploadService } from "../upload/upload.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CameraService {
-
-  constructor(
-    private camera: Camera, 
-    private us: UploadService) { }
+  constructor(private camera: Camera, private us: UploadService) {}
 
   AbrirCamera(): void {
     const options: CameraOptions = {
@@ -21,7 +17,8 @@ export class CameraService {
       mediaType: this.camera.MediaType.PICTURE
     };
 
-    this.TirarFoto(options);
+    const image = this.TirarFoto(options);
+    this.us.UploadImage(image);
   }
 
   AbrirGaleria(): void {
@@ -32,14 +29,20 @@ export class CameraService {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
-    
-    this.TirarFoto(options);
+
+    const image = this.TirarFoto(options);
+    this.us.UploadImage(image);
   }
 
-  private TirarFoto(options: CameraOptions): void {
-    this.camera.getPicture(options).then(
-      imageData => {
-        console.log(imageData);
+  private TirarFoto(options: CameraOptions): string {
+    let imagem: string;
+    this.camera.getPicture(options).then(imageData => {
+      imageData = `data:image/jpeg;base64,${imageData}`;
+    })
+    .catch(e => {
+      console.log(e);
     });
+
+    return imagem;
   }
 }
