@@ -3,6 +3,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { NavController, AlertController } from "@ionic/angular";
 import { auth } from "firebase";
 import * as firebase from "firebase/app";
+import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +15,8 @@ export class UserService {
   constructor(
     public afAuth: AngularFireAuth,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private spinnerDialog: SpinnerDialog
   ) {}
 
   // Esse método controla se o usuário pode acessar a view desejada ou não.
@@ -26,15 +28,18 @@ export class UserService {
   }
 
   LoginGoogle() {
+    this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(_ => {
         this.afAuth.auth
           .signInWithPopup(new auth.GoogleAuthProvider())
           .then(_ => {
+            this.spinnerDialog.hide();
             this.navCtrl.navigateRoot("/tabs/tab1");
           })
           .catch(async error => {
+            this.spinnerDialog.hide();
             const alerta = await this.alertController.create({
               header: "Erro!",
               subHeader: "Não foi possível logar",
@@ -49,12 +54,15 @@ export class UserService {
   }
 
   LoginFacebook() {
+    this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .signInWithPopup(new auth.FacebookAuthProvider())
       .then(_ => {
+        this.spinnerDialog.hide();
         this.navCtrl.navigateRoot("/tabs/tab1");
       })
       .catch(async error => {
+        this.spinnerDialog.hide();
         const alerta = await this.alertController.create({
           header: "Não foi possível logar!",
           subHeader: "Não foi possível logar",
@@ -67,12 +75,15 @@ export class UserService {
   }
 
   CreateUserUsingEmailAndPassword(email: string, password: string) {
+    this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(_ => {
+        this.spinnerDialog.hide();
         this.LoginUsingEmailAndPassword(email, password);
       })
       .catch(async error => {
+        this.spinnerDialog.hide();
         let msgErro = "Erro não identificado!";
         if (error.code) {
           if (error.code === "auth/weak-password") {
@@ -96,12 +107,15 @@ export class UserService {
   }
 
   LoginUsingEmailAndPassword(email: string, password: string) {
+    this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(_ => {
+        this.spinnerDialog.hide();
         this.navCtrl.navigateRoot("/tabs/tab1");
       })
       .catch(async error => {
+        this.spinnerDialog.hide();
         const alerta = await this.alertController.create({
           header: "Erro!",
           subHeader: "Não foi possível logar",
@@ -119,10 +133,14 @@ export class UserService {
     this.afAuth.auth.signOut();
   }
 
+  GetUserId(): string {
+    return this.afAuth.auth.currentUser ? this.afAuth.auth.currentUser.uid : "";
+  }
+
   // Verifica se o usuário está logado ou não no firebase.
   private UserIsLogged(): boolean {
     return this.afAuth.auth.currentUser ? true : false;
-  }
+  } 
 
   // Redireciona para a tela de login do aplicativo.
   private RedirectToLogin(): void {

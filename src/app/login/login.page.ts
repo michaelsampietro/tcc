@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../utils/user.service';
-import { LoadingController } from '@ionic/angular';
+import { UserService } from '../utils/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +11,7 @@ export class LoginPage implements OnInit {
 	email: string;
 	password: string;
 
-	constructor(private userService: UserService, 
-		private loadingController: LoadingController) { }
+	constructor(private userService: UserService) { }
 
 	ngOnInit() { }
 	

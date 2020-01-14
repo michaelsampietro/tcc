@@ -14,6 +14,8 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { Camera } from "@ionic-native/camera/ngx";
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,12 +27,14 @@ import { Camera } from "@ionic-native/camera/ngx";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
+    SpinnerDialog,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
