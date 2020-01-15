@@ -1,11 +1,15 @@
 .input-error {
     border: 1px solid red;
-    border-radius: 7px;
+    border-radius: 0px;
     transition: all .2s;
 }
 
 .input-success {
     border: 1px solid green;
-    border-radius: 7px;
+    border-radius: 0px;
     transition: all .2s;
+}
+
+button {
+    border-radius: 0px !important;
 }
