@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase/app";
 import { UserService } from '../user/user.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  constructor(private user: UserService, private loadingController: LoadingController) { }
+  constructor(
+    private user: UserService, 
+    private loadingController: LoadingController,
+    private navController: NavController) { }
 
   async UploadImage(base64Imge: string) {
     const loading = await this.loadingController.create({
@@ -18,8 +21,9 @@ export class UploadService {
 
     await loading.present();
     const locale = firebase.storage().ref(`images/user_${this.user.GetUserId()}/${this.ParseTime()}`);
-    locale.putString(base64Imge, 'data_url')
+    locale.putString(base64Imge, 'data_url');
     await loading.dismiss();
+    this.navController.navigateRoot('/new-look');
   }
 
   // Função interna para auxiliar no nome dos arquivos a serem gerados.
