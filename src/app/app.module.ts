@@ -14,8 +14,9 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { Camera } from "@ionic-native/camera/ngx";
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,8 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     StatusBar,

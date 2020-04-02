@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastrar nova peça</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="padding-top: 30px">
+
+  <div class="img-wrapper">
+    <img src="https://placeimg.com/200/200/any" width="200" alt="Look">
+  </div>
+
+  <form [formGroup]="newLookForm" (ngSubmit)="registerNewLook(newLookForm.value)">
+
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" placeholder="Ex: Bota preta" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tags</ion-label>
+      <tag-input [(ngModel)]='items' separatorKeys=',' clearOnBlur></tag-input>
+    </ion-item>
+
+    <tag-input id="tags" [ngModel]="items" separatorKeys=',' clearOnBlur="true" onAdd="teste($event)">
+      <tag-input-dropdown [autocompleteItems]="options">
+          </tag-input-dropdown>
+    </tag-input>
+
+    <button ion-button type="submit" [disabled]="!newLookForm.valid">Submit</button>
+  </form>
+
+</ion-content>
