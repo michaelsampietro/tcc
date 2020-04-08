@@ -6,22 +6,18 @@
 
 <ion-content style="padding-top: 30px">
 
-  <div class="img-wrapper">
-    <img src="https://placeimg.com/200/200/any" width="200" alt="Look">
-  </div>
-
   <form [formGroup]="newLookForm" (ngSubmit)="registerNewLook(newLookForm.value)">
+
+    <div class="img-wrapper">
+      <img [src]="image.value" width="200" alt="Imagem do item">
+    </div>
 
     <ion-item>
       <ion-label>Nome</ion-label>
       <ion-input type="text" placeholder="Ex: Bota preta" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>Tags</ion-label>
-      <tag-input [(ngModel)]='items' separatorKeys=',' clearOnBlur></tag-input>
-    </ion-item>
 
-    <tag-input id="tags" [ngModel]="items" separatorKeys=',' clearOnBlur="true" onAdd="teste($event)">
+    <tag-input formControlName="tags" id="tags" [ngModel]="items" separatorKeys=',' clearOnBlur="true" onAdd="teste($event)">
       <tag-input-dropdown [autocompleteItems]="options">
           </tag-input-dropdown>
     </tag-input>

@@ -18,8 +18,9 @@ export class UploadService {
 
     await loading.present();
     const locale = firebase.storage().ref(`images/user_${this.user.GetUserId()}/${this.ParseTime()}`);
-    locale.putString(base64Imge, "data_url");
+    await locale.putString(base64Imge, "data_url");
     await loading.dismiss();
+    return locale.getDownloadURL();
   }
 
   // Função interna para auxiliar no nome dos arquivos a serem gerados.

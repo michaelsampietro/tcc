@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { NewLookPage } from "./new-look.page";
-import { TagInputModule } from 'ngx-chips';
+import { TagInputModule } from "ngx-chips";
 
 const routes: Routes = [
   {
@@ -15,13 +15,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    TagInputModule,
     CommonModule,
     FormsModule,
-    IonicModule,
-    FormsModule,
     ReactiveFormsModule,
-
+    TagInputModule,
+    FormsModule,
+    IonicModule,
     RouterModule.forChild(routes)
   ],
   declarations: [NewLookPage]
