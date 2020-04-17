@@ -3,7 +3,9 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { NavController, AlertController } from "@ionic/angular";
 import { auth } from "firebase";
 import * as firebase from "firebase/app";
-import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Item } from 'src/app/models/item';
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +18,8 @@ export class UserService {
     public afAuth: AngularFireAuth,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private spinnerDialog: SpinnerDialog
+    private spinnerDialog: SpinnerDialog,
+    private database: AngularFireDatabase
   ) {}
 
   // Esse método controla se o usuário pode acessar a view desejada ou não.
@@ -35,6 +38,7 @@ export class UserService {
         this.afAuth.auth
           .signInWithPopup(new auth.GoogleAuthProvider())
           .then(_ => {
+            this.SaveUserToLocalStorage();
             this.spinnerDialog.hide();
             this.navCtrl.navigateRoot("/tabs/tab1");
           })
@@ -58,6 +62,7 @@ export class UserService {
     this.afAuth.auth
       .signInWithPopup(new auth.FacebookAuthProvider())
       .then(_ => {
+        this.SaveUserToLocalStorage();
         this.spinnerDialog.hide();
         this.navCtrl.navigateRoot("/tabs/tab1");
       })
@@ -79,6 +84,7 @@ export class UserService {
     this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(_ => {
+        this.SaveUserToLocalStorage();
         this.spinnerDialog.hide();
         this.LoginUsingEmailAndPassword(email, password);
       })
@@ -111,6 +117,7 @@ export class UserService {
     this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(_ => {
+        this.SaveUserToLocalStorage();
         this.spinnerDialog.hide();
         this.navCtrl.navigateRoot("/tabs/tab1");
       })
@@ -134,16 +141,27 @@ export class UserService {
   }
 
   GetUserId(): string {
-    return this.afAuth.auth.currentUser ? this.afAuth.auth.currentUser.uid : "";
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? user.uid : "";
+  }
+
+  GetUserBooks(): AngularFireList<Item> {
+    const userId = this.GetUserId();
+    return this.database.list<Item>('/looks', ref => ref.orderByChild('user').equalTo(userId));
   }
 
   // Verifica se o usuário está logado ou não no firebase.
   private UserIsLogged(): boolean {
-    return this.afAuth.auth.currentUser ? true : false;
-  } 
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? true : false;
+  }
 
   // Redireciona para a tela de login do aplicativo.
   private RedirectToLogin(): void {
     this.navCtrl.navigateRoot("/login");
+  }
+
+  private SaveUserToLocalStorage() {
+    localStorage.setItem("user", JSON.stringify(this.afAuth.auth.currentUser));
   }
 }

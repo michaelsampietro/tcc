@@ -14,8 +14,10 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { Camera } from "@ionic-native/camera/ngx";
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,11 +26,14 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
     StatusBar,
