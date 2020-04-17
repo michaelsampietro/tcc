@@ -4,6 +4,8 @@ import { NavController, AlertController } from "@ionic/angular";
 import { auth } from "firebase";
 import * as firebase from "firebase/app";
 import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Item } from 'src/app/models/item';
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +18,8 @@ export class UserService {
     public afAuth: AngularFireAuth,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private spinnerDialog: SpinnerDialog
+    private spinnerDialog: SpinnerDialog,
+    private database: AngularFireDatabase
   ) {}
 
   // Esse método controla se o usuário pode acessar a view desejada ou não.
@@ -142,9 +145,14 @@ export class UserService {
     return user ? user.uid : "";
   }
 
+  GetUserBooks(): AngularFireList<Item> {
+    const userId = this.GetUserId();
+    return this.database.list<Item>('/looks', ref => ref.orderByChild('user').equalTo(userId));
+  }
+
   // Verifica se o usuário está logado ou não no firebase.
   private UserIsLogged(): boolean {
-    const user = JSON.parse(localStorage.getItem("user"))
+    const user = JSON.parse(localStorage.getItem("user"));
     return user ? true : false;
   }
 

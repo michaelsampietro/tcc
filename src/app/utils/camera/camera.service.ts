@@ -24,7 +24,11 @@ export class CameraService {
 
     this.TirarFoto(options).then(i => {
       console.log(i);
-      this.us.UploadImage(i);
+      this.us.UploadImage(i).then( (url: string) => {
+        const id = new Date().getTime();
+        this.dataService.setData(id, url);
+        this.router.navigate([`/new-look/${id}`]);
+      });
     });
   }
 
@@ -38,7 +42,7 @@ export class CameraService {
     };
 
     this.TirarFoto(options).then(i => {
-      this.us.UploadImage(i).then( (url) => {
+      this.us.UploadImage(i).then( (url: string) => {
         console.log('Subiu imagem');
         const id = new Date().getTime();
         this.dataService.setData(id, url);
