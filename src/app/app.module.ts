@@ -33,7 +33,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
