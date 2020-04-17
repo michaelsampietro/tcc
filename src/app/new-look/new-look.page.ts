@@ -26,8 +26,8 @@ export class NewLookPage implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.snapshot.data["special"]) {
-      this.newLookForm.patchValue({ image: this.route.snapshot.data["special"]});
+    if (this.route.snapshot.data.special) {
+      this.newLookForm.patchValue({ image: this.route.snapshot.data.special});
     }
   }
 

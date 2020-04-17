@@ -39,6 +39,7 @@ export class CameraService {
 
     this.TirarFoto(options).then(i => {
       this.us.UploadImage(i).then( (url) => {
+        console.log('Subiu imagem');
         const id = new Date().getTime();
         this.dataService.setData(id, url);
         this.router.navigate([`/new-look/${id}`]);
