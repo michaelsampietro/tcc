@@ -19,7 +19,6 @@ import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
