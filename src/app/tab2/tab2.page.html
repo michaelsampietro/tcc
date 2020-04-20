@@ -11,17 +11,20 @@
     <h2>Seus itens mais recentes</h2>
   </ion-text>
 
-  <ion-card *ngFor="let look of looks" class="welcome-card">
-    <ion-img [src]="look.image"></ion-img>
-    <ion-card-header>
-      <ion-card-title>
-        <span>{{look.name}}</span>
-      </ion-card-title>
-      <ion-card-subtitle>
-        <p style="color: #cdcdcd">Tags</p>
-        <span class="tags" *ngFor="let tag of look.tags">{{tag}}</span>
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-
+  <ion-row>
+    <ion-col size="6" *ngFor="let look of looks">
+      <ion-card class="welcome-card">
+        <ion-img [src]="look.image"></ion-img>
+        <ion-card-header>
+          <ion-card-title>
+            <span>{{look.name}}</span>
+          </ion-card-title>
+          <ion-card-subtitle>
+            <p style="color: #cdcdcd">Tags</p>
+            <span class="tags" *ngFor="let tag of look.tags">{{tag}}</span>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

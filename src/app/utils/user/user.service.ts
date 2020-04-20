@@ -57,28 +57,6 @@ export class UserService {
       });
   }
 
-  LoginFacebook() {
-    this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
-    this.afAuth.auth
-      .signInWithPopup(new auth.FacebookAuthProvider())
-      .then(_ => {
-        this.SaveUserToLocalStorage();
-        this.spinnerDialog.hide();
-        this.navCtrl.navigateRoot("/tabs/tab1");
-      })
-      .catch(async error => {
-        this.spinnerDialog.hide();
-        const alerta = await this.alertController.create({
-          header: "Não foi possível logar!",
-          subHeader: "Não foi possível logar",
-          message: error.message,
-          buttons: ["OK"]
-        });
-        alerta.present();
-        console.log(error);
-      });
-  }
-
   CreateUserUsingEmailAndPassword(email: string, password: string) {
     this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
@@ -138,6 +116,8 @@ export class UserService {
   // Faz logout com o usuário atualmente logado.
   Logout() {
     this.afAuth.auth.signOut();
+    localStorage.removeItem("user");
+    this.RedirectToLogin();
   }
 
   GetUserId(): string {
