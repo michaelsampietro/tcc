@@ -19,7 +19,6 @@ import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,7 +32,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
