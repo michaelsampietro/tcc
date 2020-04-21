@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../models/item';
 import { UploadService } from '../utils/upload/upload.service';
 import { LoadingController } from '@ionic/angular';
+import { TagService } from '../utils/tag.service';
 
 @Component({
   selector: 'app-new-look',
@@ -14,10 +15,11 @@ export class NewLookPage implements OnInit {
 
   newLookForm: FormGroup;
   items = [];
-  options = ['teste', 'teste2', 'uhu'];
+  options = [];
 
   constructor(private formBuilder: FormBuilder,
               private uploadService: UploadService,
+              private tagService: TagService,
               private loadingController: LoadingController,
               private route: ActivatedRoute,
               private router: Router) {
@@ -31,12 +33,13 @@ export class NewLookPage implements OnInit {
   }
 
   ngOnInit() {
-    this.newLookForm.patchValue({ image: 'https://placeimg.com/640/480/any'});
-    // if (this.route.snapshot.data.special) {
-    //   this.newLookForm.patchValue({ image: this.route.snapshot.data.special});
-    // } else {
-    //   this.newLookForm.patchValue({ image: 'https://placeimg.com/640/480/any'});
-    // }
+    this.getTags();
+    if (this.route.snapshot.data.image) {
+      this.newLookForm.patchValue({ image: this.route.snapshot.data.image});
+    } else {
+      alert('Erro! Por favor, enviar a imagem novamente.');
+      this.router.navigate(['/tabs/inicio']);
+    }
   }
 
   teste(event: string) {
@@ -70,11 +73,27 @@ export class NewLookPage implements OnInit {
 
     await loading.present();
     this.uploadService.UploadLook(look).then( async success => {
-      console.log(success);
+      this.router.navigate(['/tabs/buscar']);
       await loading.dismiss();
     }).catch( async err => {
       console.log(err);
       await loading.dismiss();
+    });
+  }
+
+  getTags() {
+    this.tagService.GetAllTags().snapshotChanges().subscribe(dataSnapshot => {
+      this.options = [];
+      dataSnapshot.forEach(snapshot => {
+        console.log(this.options);
+        const values: string[] = Object.values(snapshot.payload.toJSON());
+        console.log(values);
+        values.forEach(value => {
+          if (!this.options.some(option => option === value)) {
+            this.options.push(value);
+          }
+        });
+      });
     });
   }
 

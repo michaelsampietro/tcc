@@ -5,6 +5,7 @@ import { LoadingController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Item } from 'src/app/models/item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { TagService } from '../tag.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,15 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 export class UploadService {
 
   looks: AngularFireList<any>;
+  looksReference = '';
 
   constructor(private user: UserService,
               private loadingController: LoadingController,
               private firestore: AngularFirestore,
-              private database: AngularFireDatabase) {
-    this.looks = this.database.list('/looks');
+              private database: AngularFireDatabase,
+              private tagService: TagService) {
+    this.looksReference = `/looks/${this.user.GetUserId()}`;
+    this.looks = this.database.list(this.looksReference);
     console.log(this.looks);
   }
 
@@ -31,8 +35,9 @@ export class UploadService {
 
   async UploadLook(look: Item) {
     look.user = this.user.GetUserId();
-    this.looks.push(look);
-    console.log(this.database.list('/looks'));
+    await this.looks.push(look);
+    this.tagService.UploadNewTag(look.tags);
+    console.log(this.database.list(this.looksReference));
   }
 
   // Função interna para auxiliar no nome dos arquivos a serem gerados.

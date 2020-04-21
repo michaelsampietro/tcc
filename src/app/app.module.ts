@@ -18,6 +18,8 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { SpinnerDialog } from "@ionic-native/spinner-dialog/ngx";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { UserService } from './utils/user/user.service';
+import { UploadService } from './utils/upload/upload.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +42,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     SplashScreen,
     Camera,
     SpinnerDialog,
+    UploadService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

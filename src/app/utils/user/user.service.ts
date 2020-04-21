@@ -40,7 +40,7 @@ export class UserService {
           .then(_ => {
             this.SaveUserToLocalStorage();
             this.spinnerDialog.hide();
-            this.navCtrl.navigateRoot("/tabs/tab1");
+            this.navCtrl.navigateRoot("/tabs/inicio");
           })
           .catch(async error => {
             this.spinnerDialog.hide();
@@ -97,7 +97,7 @@ export class UserService {
       .then(_ => {
         this.SaveUserToLocalStorage();
         this.spinnerDialog.hide();
-        this.navCtrl.navigateRoot("/tabs/tab1");
+        this.navCtrl.navigateRoot("/tabs/inicio");
       })
       .catch(async error => {
         this.spinnerDialog.hide();
@@ -125,9 +125,14 @@ export class UserService {
     return user ? user.uid : "";
   }
 
-  GetUserBooks(): AngularFireList<Item> {
+  GetUserLooks(): AngularFireList<Item> {
     const userId = this.GetUserId();
-    return this.database.list<Item>('/looks', ref => ref.orderByChild('user').equalTo(userId));
+    return this.database.list<Item>(`/looks/${this.GetUserId()}`);
+  }
+
+  GetRecentLooks(): AngularFireList<Item> {
+    const userId = this.GetUserId();
+    return this.database.list<Item>(`/looks/${this.GetUserId()}`);
   }
 
   // Verifica se o usuário está logado ou não no firebase.

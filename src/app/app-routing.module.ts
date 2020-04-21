@@ -8,10 +8,17 @@ const routes: Routes = [
   { path: "signup", loadChildren: "./signup/signup.module#SignupPageModule" },
   { path: "new-look/:id",
     resolve: {
-      special: DataResolverService
+      image: DataResolverService
     },
     loadChildren: "./new-look/new-look.module#NewLookPageModule"
   },
+  { path: 'view-look/:id',
+    resolve: {
+      look: DataResolverService
+    },
+    loadChildren: './view-look/view-look.module#ViewLookPageModule'
+  },
+
 
 ];
 @NgModule({

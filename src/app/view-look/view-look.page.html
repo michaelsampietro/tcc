@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Visualizar item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-img [src]="look?.image"></ion-img>
+
+  <div style="padding: 0 20px">
+    <h1>{{look?.name}}</h1>
+    <p>{{look?.name}}</p>
+  
+    <p style="color: #cdcdcd">Tags</p>
+    <span class="tags" *ngFor="let tag of look.tags">{{tag}}</span>
+  </div>
+</ion-content>

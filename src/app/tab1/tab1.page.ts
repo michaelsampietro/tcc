@@ -34,8 +34,13 @@ export class Tab1Page {
   }
 
   ObterImagensMaisRecentes(): void {
-    this.imagens.push("https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/solar-green20190924224618.png?alt=media&token=93cd1536-6264-4f75-9990-96049848e667");
-    this.imagens.push("https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/ozweego-black-carbon20190923224411.png?alt=media&token=54c5916e-ef3c-40fe-b0f6-b7f660552ed8");
-    this.imagens.push("https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/CW1203_01_laydown.jpg?alt=media&token=0a74256f-7250-4f56-b5cd-7dca1f311b6a");
+    this.userService.GetRecentLooks().snapshotChanges().subscribe(dataSnapshot => {
+      this.imagens = [];
+      dataSnapshot.forEach( snapshot => {
+        const item: any = snapshot.payload.toJSON();
+        this.imagens.push(item.image);
+        console.log(item);
+      });
+    });
   }
 }
