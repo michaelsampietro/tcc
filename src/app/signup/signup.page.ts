@@ -11,18 +11,19 @@ export class SignupPage implements OnInit {
   email: string;
   password: string;
   passwordConfirmation: string;
+  name: string;
   inputClass: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.email = this.password = this.passwordConfirmation = this.inputClass = "";
+    this.email = this.password = this.passwordConfirmation = this.inputClass = this.name = "";
   }
 
   createUser() {
-		this.userService.CreateUserUsingEmailAndPassword(this.email, this.password);
+    this.userService.CreateUserUsingEmailAndPassword(this.email, this.password, this.name);
   }
-  
+
   verifyIfPasswordMatches() {
     if (this.password != this.passwordConfirmation) {
       this.inputClass = "input-error";

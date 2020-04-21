@@ -57,14 +57,13 @@ export class UserService {
       });
   }
 
-  CreateUserUsingEmailAndPassword(email: string, password: string) {
+  CreateUserUsingEmailAndPassword(email: string, password: string, displayname: string) {
     this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(_ => {
-        this.SaveUserToLocalStorage();
+        this.LoginUsingEmailAndPassword(email, password, displayname);
         this.spinnerDialog.hide();
-        this.LoginUsingEmailAndPassword(email, password);
       })
       .catch(async error => {
         this.spinnerDialog.hide();
@@ -90,12 +89,13 @@ export class UserService {
       });
   }
 
-  LoginUsingEmailAndPassword(email: string, password: string) {
+  LoginUsingEmailAndPassword(email: string, password: string, displayname: string = '') {
     this.spinnerDialog.show("Entrando...", "Aguarde, por favor.");
     this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(_ => {
         this.SaveUserToLocalStorage();
+        this.AddUserDisplayNameToFirebase(displayname);
         this.spinnerDialog.hide();
         this.navCtrl.navigateRoot("/tabs/inicio");
       })
@@ -112,7 +112,7 @@ export class UserService {
         console.log(error);
       });
   }
-
+  
   // Faz logout com o usuário atualmente logado.
   Logout() {
     this.afAuth.auth.signOut();
@@ -125,14 +125,16 @@ export class UserService {
     return user ? user.uid : "";
   }
 
-  GetUserLooks(): AngularFireList<Item> {
-    const userId = this.GetUserId();
-    return this.database.list<Item>(`/looks/${this.GetUserId()}`);
+  GetUserLooks(nodeId: number = 0, pageSize: number = 10): AngularFireList<Item> {
+    if (nodeId > 0) {
+      return this.database.list<Item>(`/looks/${this.GetUserId()}`, ref => ref.orderByChild('id').startAt(nodeId + 1).limitToFirst(pageSize));
+    }
+
+    return this.database.list<Item>(`/looks/${this.GetUserId()}`, ref => ref.orderByChild('id').limitToFirst(pageSize));
   }
 
   GetRecentLooks(): AngularFireList<Item> {
-    const userId = this.GetUserId();
-    return this.database.list<Item>(`/looks/${this.GetUserId()}`);
+    return this.database.list<Item>(`/looks/${this.GetUserId()}`, ref => ref.orderByKey().limitToLast(3));
   }
 
   // Verifica se o usuário está logado ou não no firebase.
@@ -148,5 +150,13 @@ export class UserService {
 
   private SaveUserToLocalStorage() {
     localStorage.setItem("user", JSON.stringify(this.afAuth.auth.currentUser));
+  }
+
+  private AddUserDisplayNameToFirebase(displayName: string) {
+    this.afAuth.user.subscribe(u => {
+      u.updateProfile({
+        displayName
+      });
+    });
   }
 }

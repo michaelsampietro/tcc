@@ -21,9 +21,7 @@
 		<ion-img src="https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/fundotcc.webp?alt=media&token=eb8a07b2-3e29-4dcf-9a26-cb2dde500d5b"></ion-img>
 		<ion-card-header>
 			<ion-card-subtitle>Bem vindo,</ion-card-subtitle>
-			<div *ngIf="afAuth.user | async as user; else anonimo">
-				<ion-card-title>{{user.displayName}}</ion-card-title>
-			</div>
+			<ion-card-title>{{userName}}</ion-card-title>
 		</ion-card-header>
 		
 		<ion-card-content>

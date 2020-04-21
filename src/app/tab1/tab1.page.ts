@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "angularfire2/auth";
 import { UserService } from "../utils/user/user.service";
 import { CameraService } from "../utils/camera/camera.service";
@@ -8,9 +8,10 @@ import { CameraService } from "../utils/camera/camera.service";
   templateUrl: "tab1.page.html",
   styleUrls: ["tab1.page.scss"]
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
 
   imagens: string[];
+  userName = '';
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -19,6 +20,13 @@ export class Tab1Page {
   ) {
     this.imagens = new Array<string>();
     userService.ControlPageAccess();
+  }
+
+  ngOnInit(): void {
+    this.afAuth.user.subscribe(u => {
+      console.log(u);
+      this.userName = u.displayName;
+    });
   }
 
   ionViewDidEnter() {

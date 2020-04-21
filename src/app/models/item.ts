@@ -4,4 +4,5 @@ export interface Item {
     image: string;
     tags: string[];
     user: string;
+    key?: string;
 }
