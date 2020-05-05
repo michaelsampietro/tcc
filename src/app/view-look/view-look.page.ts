@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Item } from '../models/item';
 import { UserService } from '../utils/user/user.service';
 import { DataService } from '../services/data.service';
+import { AlertController } from '@ionic/angular';
+import { UploadService } from '../utils/upload/upload.service';
 
 @Component({
   selector: 'app-view-look',
@@ -17,6 +19,8 @@ export class ViewLookPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
+              private uploadService: UploadService,
+              public alertController: AlertController,
               private dataService: DataService,
               private router: Router) { }
 
@@ -36,14 +40,37 @@ export class ViewLookPage implements OnInit {
     this.router.navigate([`/view-look/${look.id}`]);
   }
 
+  async delete() {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Tem certeza que deseja exlcuir esse look? <strong>Essa ação não pode ser desfeita!</strong>',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.router.navigate(['/tabs/buscar', {update: true}]);
+          }
+        }, {
+          text: 'Sim',
+          cssClass: 'ion-color-danger',
+          handler: () => {
+            this.uploadService.DeleteLook(this.look);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   private getRelatedItems() {
     this.userService.GetUserLooks().snapshotChanges().subscribe(dataSnapshot => {
       dataSnapshot.forEach((snapshot) => {
         const look = snapshot.payload.toJSON() as Item;
         look.tags = Object.values(look.tags);
 
-        console.log(look);
-        console.log(this.look);
         if (look.tags.some(tag => this.look.tags.includes(tag)) && look.id !== this.look.id) {
           this.relatedItems.push(look);
         }

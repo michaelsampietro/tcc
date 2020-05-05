@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Item } from 'src/app/models/item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { TagService } from '../tag.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class UploadService {
   constructor(private user: UserService,
               private loadingController: LoadingController,
               private firestore: AngularFirestore,
+              private router: Router,
               private database: AngularFireDatabase,
               private tagService: TagService) {
     this.looksReference = `/looks/${this.user.GetUserId()}`;
@@ -38,6 +40,12 @@ export class UploadService {
     await this.looks.push(look);
     this.tagService.UploadNewTag(look.tags);
     console.log(this.database.list(this.looksReference));
+  }
+
+  async DeleteLook(look: Item) {
+    await this.database.list(`${this.looksReference}/${look.key}`).remove().finally( () => {
+      this.router.navigate(['/tabs/buscar', {update: true}]);
+    });
   }
 
   // Função interna para auxiliar no nome dos arquivos a serem gerados.

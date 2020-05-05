@@ -29,7 +29,7 @@ export class NewLookPage implements OnInit {
       tags: ['', Validators.required],
       image: ['', Validators.required]
     });
-
+ 
   }
 
   ngOnInit() {
