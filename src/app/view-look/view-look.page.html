@@ -14,8 +14,26 @@
   <div style="padding: 0 20px">
     <h1>{{look?.name}}</h1>
     <p>{{look?.name}}</p>
-  
+
     <p style="color: #cdcdcd">Tags</p>
     <span class="tags" *ngFor="let tag of look.tags">{{tag}}</span>
   </div>
+
+  <div style="padding: 0 20px;" *ngIf="relatedItems.length > 0">
+    <h3>Itens relacionados</h3>
+  
+    <div class="slider">
+      <div class="slide" *ngFor="let look of relatedItems">
+        <ion-card (click)="openLookPage(look)" class="welcome-card">
+          <ion-img [src]="look.image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>
+              <span>{{look.name}}</span>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

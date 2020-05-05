@@ -55,7 +55,7 @@ export class Tab2Page implements OnInit {
       toast.present();
       this.isSearching = false;
     } else {
-      this.searchForm.patchValue({query: this.searchForm.get("query").value.trimLeft().trimRight()});
+      this.searchForm.patchValue({query: this.searchForm.get("query").value});
       this.searchValue = formValue.query;
 
       this.userService.GetUserLooks().snapshotChanges().subscribe((dataSnapshot) => {
@@ -115,7 +115,7 @@ export class Tab2Page implements OnInit {
   }
 
   private exists(lookName: string, search: string) {
-    return lookName.trimLeft().trimRight().toLocaleLowerCase()
+    return lookName.toLocaleLowerCase()
            .indexOf(search.toLocaleLowerCase()) >= 0
            ? true
            : false;
