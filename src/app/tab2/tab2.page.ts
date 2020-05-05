@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
   templateUrl: "tab2.page.html",
   styleUrls: ["tab2.page.scss"],
 })
-export class Tab2Page implements OnInit, OnDestroy {
+export class Tab2Page implements OnInit {
   routerSubscription: Subscription;
 
   allLooks: Item[] = [];
