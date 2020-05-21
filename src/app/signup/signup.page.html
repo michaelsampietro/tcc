@@ -1,10 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signup</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <div style="max-height: 300px">
+		<ion-img src="../../assets/logo.png" style="height: 300px;"></ion-img>
+	</div>
+
   <div class="ion-padding">
     <ion-item lines="none">
       <ion-label>
@@ -31,11 +39,9 @@
       <ion-label>
         <ion-icon name="lock"></ion-icon>
       </ion-label>
-      <ion-input id="passwordConfirmation" [ngClass]='inputClass' placeholder="Confirme sua senha" [(ngModel)]="passwordConfirmation"
-        type="password" (keyup)="verifyIfPasswordMatches()"></ion-input>
+      <ion-input id="passwordConfirmation" [ngClass]='inputClass' placeholder="Confirme sua senha" [(ngModel)]="passwordConfirmation" type="password"></ion-input>
     </ion-item>
 
-    <ion-button id="submitButton" (click)="createUser()" expand="block"><ion-icon name="key"></ion-icon> Registrar</ion-button>
-    <ion-button color="secondary" expand="block" href="/login"><ion-icon name="arrow-back"></ion-icon> Voltar</ion-button>
+    <ion-button id="submitButton" (click)="createUser()" expand="block"><ion-icon name="key"></ion-icon> Cadastre-se</ion-button>
   </div>
 </ion-content>

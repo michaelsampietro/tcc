@@ -1,7 +1,6 @@
 <ion-content ion-padding>
 	<div style="max-height: 300px">
-		<ion-img [src]="'https://firebasestorage.googleapis.com/v0/b/tcc-especializacao.appspot.com/o/shopping-shoes-woman.png?alt=media&token=586e1d52-4123-49b5-b20d-1af516ccd4ec'">
-		</ion-img>
+		<ion-img src="../../assets/logo.png" style="height: 300px;"></ion-img>
 	</div>
 
 	<div class="ion-padding-vertical">
@@ -25,14 +24,14 @@
 			<ion-icon name="unlock" ></ion-icon> Entrar
 		</ion-button>
 
-		<hr>
+		<hr style="width: 100%;">
 
-		<ion-button expand="block" href="/signup">
+		<ion-button expand="block" [routerLink]="['/signup']">
 			<ion-icon name="key"></ion-icon> Registrar
 		</ion-button>
 	</div>
 
-	<div class="ion-padding">
+	<!-- <div class="ion-padding">
 		<ion-button (click)="loginGoogle()" expand="block"><ion-icon name="logo-google"></ion-icon> Entrar usando o Google</ion-button>
-	</div>
+	</div> -->
 </ion-content>

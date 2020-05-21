@@ -25,7 +25,8 @@ export class SignupPage implements OnInit {
   }
 
   verifyIfPasswordMatches() {
-    if (this.password != this.passwordConfirmation) {
+    console.log('entrou');
+    if (this.password !== this.passwordConfirmation) {
       this.inputClass = "input-error";
       document.getElementById("submitButton").setAttribute("disabled", "true");
     } else {
